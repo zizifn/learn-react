@@ -1,5 +1,4 @@
 function CoreConcept({img, title, description}) {
-  console.log("CoreConcept");
   return (
   <li>
     <img src={img}/>
