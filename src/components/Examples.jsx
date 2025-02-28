@@ -2,29 +2,28 @@ import { TabBut } from "./TabBut";
 import { useState } from "react";
 import { EXAMPLES } from "../data.js";
 import { Section } from "./Section";
+import { Tabs } from "./Tabs";
 
 export function Examples() {
-    const [contentType, setContent] = useState(null);
-    
-    function handleClick(selectedType) {
-        setContent(selectedType);
-    }
-    
-    return (
-      <Section id="examples" title="Examples">
-        <menu>
-          {
-            Object.keys(EXAMPLES).map((key) => (
-              <TabBut 
-                key={key} 
-                isSelected={contentType === key} 
-                onSelect={() => handleClick(key)}
-              >
-                {key[0].toUpperCase() + key.slice(1)}
-              </TabBut>
-            ))
-          }
-        </menu>
+  const [contentType, setContent] = useState(null);
+
+  function handleClick(selectedType) {
+    setContent(selectedType);
+  }
+
+  return (
+    <Section id="examples" title="Examples">
+      <Tabs
+        buttons={Object.keys(EXAMPLES).map((key) => (
+          <TabBut
+            key={key}
+            isSelected={contentType === key}
+            onSelect={() => handleClick(key)}
+          >
+            {key[0].toUpperCase() + key.slice(1)}
+          </TabBut>
+        ))}
+      >
         <div id="tab-conent">
           {contentType ?? <p>Please choose topic</p>}
           {contentType ? (
@@ -37,6 +36,7 @@ export function Examples() {
             </>
           ) : null}
         </div>
-      </Section>
-    );
+      </Tabs>
+    </Section>
+  );
 }
