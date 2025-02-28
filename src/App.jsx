@@ -1,6 +1,6 @@
 import gameLogo from "../public/game-logo.png";
 import { Player } from "./components/Player";
-import { GameBoard } from "./components/gameboard";
+import { GameBoard } from "./components/Gameboard2";
 import { useState } from "react";
 import { Logs } from "./components/Logs";
 
