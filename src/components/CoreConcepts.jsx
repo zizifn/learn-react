@@ -1,10 +1,10 @@
 import { CORE_CONCEPTS } from '../data.js';
 import { CoreConcept } from './CoreConcept';
+import { Section } from './Section';
 
 export function CoreConcepts() {
   return (
-    <section id="core-concepts">
-      <h2>Core concepts</h2>
+    <Section id="core-concepts" title="Core concepts">
       <ul>
         {CORE_CONCEPTS.map((concept) => (
           <CoreConcept
@@ -15,6 +15,6 @@ export function CoreConcepts() {
           />
         ))}
       </ul>
-    </section>
+    </Section>
   );
 }
