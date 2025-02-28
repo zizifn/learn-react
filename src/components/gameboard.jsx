@@ -1,20 +1,16 @@
-import { useState } from "react";
-
 const initGameBoard = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
 
-export function GameBoard() {
-  const [gameBoard, setGameBoard] = useState(initGameBoard);
-  function handleClick(rowIndex, cellIndex) {
-    // Handle cell click
-    setGameBoard((prevGameBoard) => {
-      const newGameBoard = prevGameBoard.map((row) => [...row]);
-      newGameBoard[rowIndex][cellIndex] = "X";
-      return newGameBoard;
-    });
+export function GameBoard({ onSwitchPlayer, logs }) {
+  let gameBoard = initGameBoard;
+  for (const {
+    square: { rowIndex, columnIndex },
+    player,
+  } of logs) {
+    gameBoard[rowIndex][columnIndex] = player;
   }
   return (
     <ol id="game-board">
@@ -27,7 +23,7 @@ export function GameBoard() {
                   <li key={cellIndex} className="cell">
                     <button
                       onClick={() => {
-                        handleClick(rowIndex, cellIndex);
+                        onSwitchPlayer(rowIndex, cellIndex);
                       }}
                     >
                       {playerSymbol}
