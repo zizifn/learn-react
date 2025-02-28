@@ -14,6 +14,7 @@ export function Examples() {
   return (
     <Section id="examples" title="Examples">
       <Tabs
+      ButtonsContainer="menu"
         buttons={Object.keys(EXAMPLES).map((key) => (
           <TabBut
             key={key}
