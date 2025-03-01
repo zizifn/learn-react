@@ -1,17 +1,4 @@
-const initGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-export function GameBoard({ onSwitchPlayer, logs }) {
-  let gameBoard = initGameBoard;
-  for (const {
-    square: { rowIndex, columnIndex },
-    player,
-  } of logs) {
-    gameBoard[rowIndex][columnIndex] = player;
-  }
+export function GameBoard({ onSwitchPlayer, gameBoard }) {
   return (
     <ol id="game-board">
       {gameBoard.map((row, rowIndex) => {
@@ -22,6 +9,7 @@ export function GameBoard({ onSwitchPlayer, logs }) {
                 return (
                   <li key={cellIndex} className="cell">
                     <button
+                      disabled={!!playerSymbol}
                       onClick={() => {
                         onSwitchPlayer(rowIndex, cellIndex);
                       }}

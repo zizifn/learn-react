@@ -3,21 +3,73 @@ import { Player } from "./components/Player";
 import { GameBoard } from "./components/Gameboard2";
 import { useState } from "react";
 import { Logs } from "./components/Logs";
+import { WINNING_COMBINATIONS } from "./winning-combinations";
+import { GameOver } from "./components/GameOver";
+
+const initGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
+
+function getCurrentPlayer(oldLogs) {
+  let currentPlayer = "X";
+  if (oldLogs[0]?.player === "X") {
+    currentPlayer = "O";
+  }
+  return currentPlayer;
+}
+
+/**
+ *
+ * @param {[{}]} logs
+ * @returns
+ */
+function checkWinner(logs) {
+  if (logs.length < 5) {
+    return null;
+  }
+  let currentPlayer = logs[0]?.player;
+  for (const winning of WINNING_COMBINATIONS) {
+    const isWinning = winning.every(({ row, column }) => {
+      const found = logs.find(
+        ({ square: { rowIndex, columnIndex }, player }) => {
+          return (
+            currentPlayer === player &&
+            rowIndex === row &&
+            columnIndex === column
+          );
+        }
+      );
+
+      return found;
+    });
+
+    if (isWinning) {
+      return currentPlayer;
+    }
+
+    if (logs.length === 9) {
+    }
+  }
+}
 
 function App() {
   const [logs, setLogs] = useState([]);
-  const [activePlayer, setActivePlayer] = useState("X");
+  // const [activePlayer, setActivePlayer] = useState("X");
+  let currentPlayer = getCurrentPlayer(logs);
+  let winner = checkWinner(logs);
+  let gameBoard = initGameBoard.map((rows) => [...rows]);
+  for (const {
+    square: { rowIndex, columnIndex },
+    player,
+  } of logs) {
+    gameBoard[rowIndex][columnIndex] = player;
+  }
 
   function switchPlayer(rowIndex, columnIndex) {
-    setActivePlayer((prevPlayer) => {
-      return prevPlayer === "X" ? "O" : "X";
-    });
-
     setLogs((oldLogs) => {
-      let currentPlayer = "X";
-      if (oldLogs[0]?.player === "X") {
-        currentPlayer = "O";
-      }
+      let currentPlayer = getCurrentPlayer(oldLogs);
       const updatedLogs = [
         {
           square: {
@@ -32,16 +84,22 @@ function App() {
       return updatedLogs;
     });
   }
+
+  function onRematch() {
+    setLogs([]);
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player isActive={activePlayer === "X"} name="Player1" symbol="X" />
-          <Player isActive={activePlayer === "O"} name="Player2" symbol="O" />
+          <Player isActive={currentPlayer === "X"} name="Player1" symbol="X" />
+          <Player isActive={currentPlayer === "O"} name="Player2" symbol="O" />
         </ol>
+        {winner && <GameOver onRematch={onRematch} winner={winner}></GameOver>}
         <GameBoard
-          logs={logs}
-          activePlayer={activePlayer}
+          gameBoard={gameBoard}
+          activePlayer={currentPlayer}
           onSwitchPlayer={switchPlayer}
         />
       </div>
