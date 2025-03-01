@@ -5,10 +5,10 @@ import { Result } from "./components/Result";
 
 function App() {
   const [inputs, setInputs] = useState({
-    initialInvestment: null,
-    annualInvestment: null,
-    expectedReturn: null,
-    duration: null,
+    initialInvestment: 10000,
+    annualInvestment: 1200,
+    expectedReturn: 5,
+    duration: 5,
   });
 
   function updateInput(type, value) {
@@ -20,10 +20,16 @@ function App() {
     });
   }
 
+  const inputIsValid = inputs.annualInvestment > 0 && inputs.duration > 0;
+
   return (
     <>
-      <UserInput updateInput={updateInput}></UserInput>
-      <Result inputs={inputs}></Result>
+      <UserInput inputs={inputs} updateInput={updateInput}></UserInput>
+      {inputIsValid ? (
+        <Result inputs={inputs}></Result>
+      ) : (
+        "please input valid number"
+      )}
     </>
   );
 }
