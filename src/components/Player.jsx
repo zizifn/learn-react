@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TestPorp } from "./Test";
 
 export function Player({ name, symbol, isActive, onNameChange }) {
   const [isEditing, setIsEditing] = useState(false);

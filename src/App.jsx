@@ -12,6 +12,17 @@ const initGameBoard = [
   [null, null, null],
 ];
 
+function createGameBoardFromLogs(logs) {
+  let gameBoard = initGameBoard.map((rows) => [...rows]);
+  for (const {
+    square: { rowIndex, columnIndex },
+    player,
+  } of logs) {
+    gameBoard[rowIndex][columnIndex] = player;
+  }
+  return gameBoard;
+}
+
 function getCurrentPlayer(oldLogs) {
   let currentPlayer = "X";
   if (oldLogs[0]?.player === "X") {
@@ -48,29 +59,24 @@ function checkWinner(logs, players) {
     if (isWinning) {
       return players[currentPlayer];
     }
-
-    if (logs.length === 9) {
-    }
   }
 }
 
+const PLAYERS = {
+  X: "Player1",
+  O: "Player2",
+};
 function App() {
   const [logs, setLogs] = useState([]);
-  const [players, setPlayers] = useState({
-    X: "Player1",
-    O: "Player2",
-  });
+
+  const [players, setPlayers] = useState(PLAYERS);
   // const [activePlayer, setActivePlayer] = useState("X");
   let currentPlayer = getCurrentPlayer(logs);
   let winner = checkWinner(logs, players);
-  let gameBoard = initGameBoard.map((rows) => [...rows]);
-  for (const {
-    square: { rowIndex, columnIndex },
-    player,
-  } of logs) {
-    gameBoard[rowIndex][columnIndex] = player;
-  }
+  let gameBoard = createGameBoardFromLogs(logs);
 
+  if (logs.length === 9) {
+  }
   function switchPlayer(rowIndex, columnIndex) {
     setLogs((oldLogs) => {
       let currentPlayer = getCurrentPlayer(oldLogs);
