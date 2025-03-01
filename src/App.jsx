@@ -25,7 +25,7 @@ function getCurrentPlayer(oldLogs) {
  * @param {[{}]} logs
  * @returns
  */
-function checkWinner(logs) {
+function checkWinner(logs, players) {
   if (logs.length < 5) {
     return null;
   }
@@ -46,7 +46,7 @@ function checkWinner(logs) {
     });
 
     if (isWinning) {
-      return currentPlayer;
+      return players[currentPlayer];
     }
 
     if (logs.length === 9) {
@@ -56,9 +56,13 @@ function checkWinner(logs) {
 
 function App() {
   const [logs, setLogs] = useState([]);
+  const [players, setPlayers] = useState({
+    X: "Player1",
+    O: "Player2",
+  });
   // const [activePlayer, setActivePlayer] = useState("X");
   let currentPlayer = getCurrentPlayer(logs);
-  let winner = checkWinner(logs);
+  let winner = checkWinner(logs, players);
   let gameBoard = initGameBoard.map((rows) => [...rows]);
   for (const {
     square: { rowIndex, columnIndex },
@@ -89,12 +93,31 @@ function App() {
     setLogs([]);
   }
 
+  function onNameChange(player) {
+    setPlayers((players) => {
+      return {
+        ...players,
+        ...player,
+      };
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player isActive={currentPlayer === "X"} name="Player1" symbol="X" />
-          <Player isActive={currentPlayer === "O"} name="Player2" symbol="O" />
+          <Player
+            onNameChange={onNameChange}
+            isActive={currentPlayer === "X"}
+            name="Player1"
+            symbol="X"
+          />
+          <Player
+            onNameChange={onNameChange}
+            isActive={currentPlayer === "O"}
+            name="Player2"
+            symbol="O"
+          />
         </ol>
         {winner && <GameOver onRematch={onRematch} winner={winner}></GameOver>}
         <GameBoard
