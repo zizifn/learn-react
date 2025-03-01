@@ -1,37 +1,13 @@
-import { useState } from "react";
+import AuthInputs from './components/AuthInputs.jsx';
+import Header from './components/Header.jsx';
 
-import { UserInput } from "./components/UserInput";
-import { Result } from "./components/Result";
-
-function App() {
-  const [inputs, setInputs] = useState({
-    initialInvestment: 10000,
-    annualInvestment: 1200,
-    expectedReturn: 5,
-    duration: 5,
-  });
-
-  function updateInput(type, value) {
-    setInputs((old) => {
-      return {
-        ...old,
-        [type]: Number(value),
-      };
-    });
-  }
-
-  const inputIsValid = inputs.annualInvestment > 0 && inputs.duration > 0;
-
+export default function App() {
   return (
     <>
-      <UserInput inputs={inputs} updateInput={updateInput}></UserInput>
-      {inputIsValid ? (
-        <Result inputs={inputs}></Result>
-      ) : (
-        "please input valid number"
-      )}
+      <Header />
+      <main>
+        <AuthInputs />
+      </main>
     </>
   );
 }
-
-export default App;
