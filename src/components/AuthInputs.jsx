@@ -12,7 +12,9 @@ const Input = styled.input`
   background-color: #d1d5db;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
   color: ${({ invalid }) => (invalid ? "#ef4444" : "red")};
   background-color: ${({ invalid }) => (invalid ? "#fed2d2" : "d1d5db")};
 `;
@@ -42,13 +44,13 @@ export default function AuthInputs() {
       <div className="controls">
         <TESTP className="big-text">
           <label>Email</label>
-          <Input
+          <input
             // style={{
             //   backgroundColor: emailNotValid ? "red" : undefined,
             // }}
             type="email"
             invalid={emailNotValid ?? false}
-            // className={emailNotValid ? "invalid" : undefined}
+            className="border-1"
             onChange={(event) => handleInputChange("email", event.target.value)}
           />
         </TESTP>
@@ -67,7 +69,10 @@ export default function AuthInputs() {
         <button type="button" className="text-button">
           Create a new account
         </button>
-        <button className="button" onClick={handleLogin}>
+        <button
+          className="rounded-b-md px-4 py-2 font-semibold uppercase hover:bg-amber-500"
+          onClick={handleLogin}
+        >
           Sign In
         </button>
       </div>
