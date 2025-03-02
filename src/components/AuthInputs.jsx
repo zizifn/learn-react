@@ -5,6 +5,18 @@ const TESTP = styled.p`
   background-color: red;
 `;
 
+const Input = styled.input`
+  width: 100%;
+  padding: 0.75rem 1rem;
+  line-height: 1.5;
+  background-color: #d1d5db;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: ${({ invalid }) => (invalid ? "#ef4444" : "red")};
+  background-color: ${({ invalid }) => (invalid ? "#fed2d2" : "d1d5db")};
+`;
+
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -30,18 +42,19 @@ export default function AuthInputs() {
       <div className="controls">
         <TESTP className="big-text">
           <label>Email</label>
-          <input
+          <Input
             // style={{
             //   backgroundColor: emailNotValid ? "red" : undefined,
             // }}
             type="email"
-            className={emailNotValid ? "invalid" : undefined}
+            invalid={emailNotValid ?? false}
+            // className={emailNotValid ? "invalid" : undefined}
             onChange={(event) => handleInputChange("email", event.target.value)}
           />
         </TESTP>
         <p>
           <label>Password</label>
-          <input
+          <Input
             type="password"
             className={passwordNotValid ? "invalid" : undefined}
             onChange={(event) =>
