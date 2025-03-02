@@ -1,10 +1,9 @@
 import AuthInputs from "./components/AuthInputs.jsx";
-import Header from "./components/Header.jsx";
+import Header from "./components/Header-Tailwind.jsx";
 
 export default function App() {
   return (
     <>
-      <p>test</p>
       <Header />
       <main>
         <AuthInputs />
