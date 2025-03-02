@@ -1,12 +1,10 @@
-import logo from "../assets/logo.png";
-import { HeaderStle } from "./HeaderStle";
+import logo from '../assets/investment-calculator-logo.png';
 
 export default function Header() {
   return (
-    <HeaderStle>
-      <img src={logo} alt="A canvas" />
-      <h1>ReactArt</h1>
-      <p>A community of artists and art-lovers.</p>
-    </HeaderStle>
+    <header id="header">
+      <img src={logo} alt="Logo showing a money bag" />
+      <h1>Investment Calculator</h1>
+    </header>
   );
 }
