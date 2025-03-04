@@ -21,13 +21,13 @@ function App() {
   function addTask(task) {
     console.log("add task");
     setProjects((old) => {
-      const clone = [...old];
-      if (!clone[selectedProject].tasks) {
-        clone[selectedProject].tasks = [];
+      const newProjects = structuredClone(old);
+      if (!newProjects[selectedProject].tasks) {
+        newProjects[selectedProject].tasks = [];
       }
-      const tasks = clone[selectedProject].tasks;
-      tasks.push(task);
-      return clone;
+      newProjects[selectedProject].tasks.push(task);
+
+      return newProjects;
     });
   }
 
@@ -38,7 +38,7 @@ function App() {
         clone[selectedProject].tasks = [];
       }
       const tasks = clone[selectedProject].tasks;
-      tasks.splice(index);
+      tasks.splice(index, 1); // Fixed: Added second parameter to remove only one item
       return clone;
     });
   }
