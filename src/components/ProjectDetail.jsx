@@ -4,9 +4,6 @@ export function ProjectDetail({ project, addTask, clearTask }) {
   const tasks = project.tasks ?? [];
   const tasRef = useRef();
 
-  function test() {
-    console.log("-------");
-  }
   return (
     <>
       <section className="flex flex-col">

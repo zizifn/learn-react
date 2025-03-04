@@ -21,7 +21,7 @@ function App() {
   function addTask(task) {
     console.log("add task");
     setProjects((old) => {
-      const clone = structuredClone(old);
+      const clone = [...old];
       if (!clone[selectedProject].tasks) {
         clone[selectedProject].tasks = [];
       }
