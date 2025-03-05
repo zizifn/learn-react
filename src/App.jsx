@@ -1,97 +1,77 @@
-import { useState } from "react";
-import { SideBar } from "./components/SideBar";
-import { InitPage } from "./components/InitPage";
-import { NewProject } from "./components/NewProject";
-import { ProjectDetail } from "./components/ProjectDetail";
+import { useState } from 'react';
+
+import Header from './components/Header.jsx';
+import Shop from './components/Shop.jsx';
+import { DUMMY_PRODUCTS } from './dummy-products.js';
 
 function App() {
-  const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(0);
+  const [shoppingCart, setShoppingCart] = useState({
+    items: [],
+  });
 
-  const [isAdding, setIsAdding] = useState(false);
+  function handleAddItemToCart(id) {
+    setShoppingCart((prevShoppingCart) => {
+      const updatedItems = [...prevShoppingCart.items];
 
-  const noProjects = projects.length < 1;
+      const existingCartItemIndex = updatedItems.findIndex(
+        (cartItem) => cartItem.id === id
+      );
+      const existingCartItem = updatedItems[existingCartItemIndex];
 
-  const showProjectDetails = !noProjects && !isAdding;
-  let project = null;
-  if (showProjectDetails) {
-    project = projects[selectedProject];
-  }
-
-  function addTask(task) {
-    console.log("add task");
-    setProjects((old) => {
-      const newProjects = structuredClone(old);
-      if (!newProjects[selectedProject].tasks) {
-        newProjects[selectedProject].tasks = [];
+      if (existingCartItem) {
+        const updatedItem = {
+          ...existingCartItem,
+          quantity: existingCartItem.quantity + 1,
+        };
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        const product = DUMMY_PRODUCTS.find((product) => product.id === id);
+        updatedItems.push({
+          id: id,
+          name: product.title,
+          price: product.price,
+          quantity: 1,
+        });
       }
-      newProjects[selectedProject].tasks.push(task);
 
-      return newProjects;
+      return {
+        items: updatedItems,
+      };
     });
   }
 
-  function clearTask(index) {
-    setProjects((old) => {
-      const clone = structuredClone(old);
-      if (!clone[selectedProject].tasks) {
-        clone[selectedProject].tasks = [];
+  function handleUpdateCartItemQuantity(productId, amount) {
+    setShoppingCart((prevShoppingCart) => {
+      const updatedItems = [...prevShoppingCart.items];
+      const updatedItemIndex = updatedItems.findIndex(
+        (item) => item.id === productId
+      );
+
+      const updatedItem = {
+        ...updatedItems[updatedItemIndex],
+      };
+
+      updatedItem.quantity += amount;
+
+      if (updatedItem.quantity <= 0) {
+        updatedItems.splice(updatedItemIndex, 1);
+      } else {
+        updatedItems[updatedItemIndex] = updatedItem;
       }
-      const tasks = clone[selectedProject].tasks;
-      tasks.splice(index, 1); // Fixed: Added second parameter to remove only one item
-      return clone;
+
+      return {
+        items: updatedItems,
+      };
     });
-  }
-
-  function selectProject(projectIndex) {
-    setSelectedProject(projectIndex);
-  }
-
-  function addingPorject() {
-    setIsAdding(true);
-  }
-
-  function cancelAddProject() {
-    setIsAdding(false);
-  }
-
-  /**
-   *
-   * @param {import("react").FormEvent} event
-   */
-  function addProject(event) {
-    console.log(event);
-    setProjects((old) => {
-      return [...old, Object.fromEntries(event.entries())];
-    });
-    setIsAdding(false);
   }
 
   return (
     <>
-      <div className="flex h-lvh">
-        <SideBar
-          projects={projects}
-          selectProject={selectProject}
-          addingPorject={addingPorject}
-        ></SideBar>
-        <div className="flex-2/3">
-          {isAdding ? (
-            <NewProject
-              cancelAddProject={cancelAddProject}
-              addProject={addProject}
-            ></NewProject>
-          ) : showProjectDetails ? (
-            <ProjectDetail
-              addTask={addTask}
-              clearTask={clearTask}
-              project={project}
-            ></ProjectDetail>
-          ) : (
-            <InitPage addingPorject={addingPorject}></InitPage>
-          )}
-        </div>
-      </div>
+      <Header
+        cart={shoppingCart}
+        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
+      />
+      <Shop onAddItemToCart={handleAddItemToCart} />
     </>
   );
 }
