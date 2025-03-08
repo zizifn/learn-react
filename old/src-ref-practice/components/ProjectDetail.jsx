@@ -6,14 +6,14 @@ export function ProjectDetail({ project, addTask, clearTask, deleteSelectedItem 
 
   return (
     <>
-      <section className="flex flex-col ml-5 gap-4 border-b-2 border-b-gray-200">  
+      <header className="flex flex-col ml-5 gap-4 border-b-2 border-b-gray-200">  
         <div className="flex justify-between">
           <h1 className="font-bold text-3xl">{project.title}</h1>
           <button onClick={deleteSelectedItem}>Delete</button>
         </div>
         <p className="text-gray-300">{project.dueDate}</p>
-        <p className="mb-4">{project.description}</p>
-      </section>
+        <pre className="mb-4">{project.description}</pre>
+      </header>
       <section className="flex flex-col mt-4 ml-5 gap-4">
         <h1 className="font-bold text-3xl">Tasks</h1>
         <div>
@@ -33,6 +33,9 @@ export function ProjectDetail({ project, addTask, clearTask, deleteSelectedItem 
             Add Task
           </button>
         </div>
+        {tasks.length < 1 && (
+          <p className="text-gray-500">No tasks yet</p>
+        )}
         <ol className="mr-5">
           {tasks.map((task, index) => {
             return (

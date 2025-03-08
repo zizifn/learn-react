@@ -8,7 +8,6 @@ export const ShoppingCartState = createContext({
 });
 
 /**
- *
  * @param {*} state
  * @param {id: string} action
  * @returns
