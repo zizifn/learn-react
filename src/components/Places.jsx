@@ -1,4 +1,11 @@
+import React, {useEffect} from "react";
+
 export default function Places({ title, places, fallbackText, onSelectPlace }) {
+  console.log("------Places", title)
+
+  useEffect(()=>{
+    console.log("-----Places--effect", title)
+  }, [])
   return (
     <section className="places-category">
       <h2>{title}</h2>
