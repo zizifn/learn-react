@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useRef} from "react";
 
 export function NewProject({ cancelAddProject, addProject }) {
+
+  const titleRef = useRef(null);
   function submitForm(event) {
+    console.log('titleRef', titleRef.current);
     console.log(event);
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -20,7 +23,7 @@ export function NewProject({ cancelAddProject, addProject }) {
       </menu>
       <label className="flex flex-col mx-5 gap-1">
         Title
-        <input
+        <input ref={titleRef}
           type="text"
           className="h-10 border-b-2 border-gray-400  bg-gray-300"
           name="title"
