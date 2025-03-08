@@ -8,6 +8,7 @@ import {
   useShoppingCart,
   ShoppingCartContext,
 } from "./store/ShoppingCart.jsx";
+import React from "react";
 
 function App() {
   const ctxValue = useShoppingCart();

@@ -1,15 +1,15 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 export function ProjectDetail({ project, addTask, clearTask }) {
   const tasks = project.tasks ?? [];
-  const tasRef = useRef();
+  const tasRef = useRef(null);
 
   return (
     <>
-      <section className="flex flex-col">
+      <section className="flex flex-col mt-20 ml-5">
         {/* <button onClick={test}>test111</button> */}
-        <div>
-          <h1>{project.title}</h1>
+        <div className="flex">
+          <h1 >{project.title}</h1>
           <button>Delete</button>
         </div>
         <p> {project.dueDate}</p>

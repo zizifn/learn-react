@@ -1,3 +1,5 @@
+import React from "react";
+
 export function NewProject({ cancelAddProject, addProject }) {
   function submitForm(event) {
     console.log(event);

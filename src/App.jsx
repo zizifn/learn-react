@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { SideBar } from "./components/SideBar";
 import { InitPage } from "./components/InitPage";
 import { NewProject } from "./components/NewProject";
@@ -69,7 +69,7 @@ function App() {
 
   return (
     <>
-      <div className="flex h-lvh">
+      <div className="flex h-lvh bg-white">
         <SideBar
           projects={projects}
           selectProject={selectProject}
