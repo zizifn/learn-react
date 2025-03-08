@@ -6,8 +6,7 @@ import { ProjectDetail } from "./components/ProjectDetail";
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(0);
-
+  const [selectedProject, setSelectedProject] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
   const noProjects = projects.length < 1;
@@ -15,35 +14,39 @@ function App() {
   const showProjectDetails = !noProjects && !isAdding;
   let project = null;
   if (showProjectDetails) {
-    project = projects[selectedProject];
+    if(!selectedProject){
+      setSelectedProject(projects[0]?.id);
+    }else{
+      project = projects.find((project) => project.id === selectedProject);
+
+    }
   }
 
   function addTask(task) {
     console.log("add task");
     setProjects((old) => {
       const newProjects = structuredClone(old);
-      if (!newProjects[selectedProject].tasks) {
-        newProjects[selectedProject].tasks = [];
+      const project = newProjects.find((project) => project.id === selectedProject);
+      if (!project.tasks) {
+        project.tasks = [];
       }
-      newProjects[selectedProject].tasks.push(task);
-
+      project.tasks.push(task);
       return newProjects;
     });
   }
 
   function clearTask(index) {
     setProjects((old) => {
-      const clone = structuredClone(old);
-      if (!clone[selectedProject].tasks) {
-        clone[selectedProject].tasks = [];
-      }
-      const tasks = clone[selectedProject].tasks;
+      const newProjects = structuredClone(old);
+      const project = newProjects.find((project) => project.id === selectedProject);
+      
+      const tasks = project.tasks;
       tasks.splice(index, 1); // Fixed: Added second parameter to remove only one item
-      return clone;
+      return newProjects;
     });
   }
 
-  function selectProject(projectIndex) {
+  function selectProject(projectID) {
     setSelectedProject(projectIndex);
   }
 
@@ -62,20 +65,33 @@ function App() {
   function addProject(event) {
     console.log(event);
     setProjects((old) => {
-      return [...old, Object.fromEntries(event.entries())];
+      return [...old, {
+        id: crypto.randomUUID(),
+        ...Object.fromEntries(event.entries())
+      }];
     });
     setIsAdding(false);
   }
 
+  function deleteSelectedItem(){
+    setProjects((old) => {
+      const clone = structuredClone(old);
+      const tempProject = clone.findIndex((project) => project.id === selectedProject);
+      clone.splice(tempProject, 1);
+      return clone;
+    });
+    setSelectedProject('');
+  }
+
   return (
     <>
-      <div className="flex h-lvh bg-white">
+      <main className="flex ite items h-screen bg-white my-8">
         <SideBar
           projects={projects}
           selectProject={selectProject}
           addingPorject={addingPorject}
-        ></SideBar>
-        <div className="flex-2/3">
+        />
+        <div className="flex-4/5">
           {isAdding ? (
             <NewProject
               cancelAddProject={cancelAddProject}
@@ -83,6 +99,7 @@ function App() {
             ></NewProject>
           ) : showProjectDetails ? (
             <ProjectDetail
+            deleteSelectedItem= {deleteSelectedItem}
               addTask={addTask}
               clearTask={clearTask}
               project={project}
@@ -91,7 +108,7 @@ function App() {
             <InitPage addingPorject={addingPorject}></InitPage>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 }
