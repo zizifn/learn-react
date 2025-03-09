@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import { log } from '../../log.js';
+import React, {memo} from 'react';
 
-function HistoryItem({ count }) {
+const HistoryItem= memo(function HistoryItem({ count }) {
   log('<HistoryItem /> rendered', 3);
 
   const [selected, setSelected] = useState(false);
@@ -16,7 +17,7 @@ function HistoryItem({ count }) {
       {count}
     </li>
   );
-}
+})
 
 export default function CounterHistory({ history }) {
   log('<CounterHistory /> rendered', 2);
@@ -24,7 +25,7 @@ export default function CounterHistory({ history }) {
   return (
     <ol>
       {history.map((count, index) => (
-        <HistoryItem key={index} count={count} />
+        <HistoryItem key={count.id} count={count.value} />
       ))}
     </ol>
   );
