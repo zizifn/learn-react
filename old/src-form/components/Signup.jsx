@@ -1,6 +1,32 @@
+import React, { useRef, useState } from "react";
+
 export default function Signup() {
+  const formRef = useRef(null);
+
+  const [passNotMatch, setPassNotMatch] = useState(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formdata = new FormData(event.target);
+    const acquisitions = formdata.getAll('acquisition');
+    const signupData = Object.fromEntries(formdata.entries());
+    signupData.acquisition = acquisitions;
+
+    if(signupData.password !== signupData['confirm-password']){
+      setPassNotMatch(true);
+      return;
+    }
+ 
+    console.log(signupData);
+    // event.target.reset();
+  }
+
+  function formchange(event){
+    console.log('formchange', event)
+  }
   return (
-    <form>
+    <form rel="" ref={formRef} onSubmit={handleSubmit} onChange={formchange}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -8,11 +34,10 @@ export default function Signup() {
         <label htmlFor="email">Email</label>
         <input id="email" type="email" name="email" />
       </div>
-
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" />
+          <input id="password" type="password" name="password" required minLength={6} />
         </div>
 
         <div className="control">
@@ -22,6 +47,9 @@ export default function Signup() {
             type="password"
             name="confirm-password"
           />
+          <div className="control-error">
+            {passNotMatch && <p>pass must match</p>}
+          </div>
         </div>
       </div>
 
@@ -89,7 +117,9 @@ export default function Signup() {
         <button type="reset" className="button button-flat">
           Reset
         </button>
-        <button className="button">Sign up</button>
+        <button type="submit" className="button">
+          Sign up
+        </button>
       </p>
     </form>
   );
