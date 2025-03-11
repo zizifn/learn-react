@@ -71,7 +71,16 @@ function App() {
       }
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+    // const {error, data} = useFetch(()=>{
+    //   return updateUserPlaces([selectedPlace, ...userPlaces])
+    // })
+    // if(error){
+    //   setError(error || '');
+    //   setData(userPlaces);
+    // }
     try {
+      
       const result = await updateUserPlaces([selectedPlace, ...userPlaces]);
     } catch (error) {
       setError(error.message);
