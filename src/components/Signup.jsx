@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 
 export default function Signup() {
+
+  const formRef = useRef(null);
   function handleSubmit(event) {
     const formdata = new FormData(event.target);
     const acquisitions = formdata.getAll('acquisition');
     const signupData = Object.fromEntries(formdata.entries());
     signupData.acquisition = acquisitions;
-
+ 
     console.log(signupData);
+    event.target.reset();
     event.preventDefault();
   }
 
@@ -15,7 +18,7 @@ export default function Signup() {
     console.log('formchange', event)
   }
   return (
-    <form onSubmit={handleSubmit} onChange={formchange}>
+    <form rel="" ref={formRef} onSubmit={handleSubmit} onChange={formchange}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
