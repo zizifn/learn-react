@@ -1,43 +1,27 @@
 import React, { useRef, useState } from "react";
+import { Input, InputV2 } from "./Input";
+import { isNotEmpty, isEmail } from "../util/validation";
+import { useInput } from "../hooks/inputhook";
 
 export default function Login() {
-  const [enterValues, setEnterValue] = useState({
-    email: "",
-    password: "",
+  const {
+    value: emailValue,
+    didEdit: emailEdit,
+    hasError: emailError,
+    handleChanges: handleEmailchange,
+    handleInputBlur: handleemailblur,
+  } = useInput("", (value) => {
+    return isNotEmpty(value) && isEmail(value);
   });
-  const [didEdit, setDidedit] = useState({
-    email: false,
-    password: false,
+
+  const {
+    value: passValue,
+    hasError: passError,
+    handleChanges: handlepasschange,
+    handleInputBlur: handlepassblur,
+  } = useInput("", (value) => {
+    return isNotEmpty(value);
   });
-
-  const emailIsInVaild = didEdit.email && !enterValues.email.includes("@");
-
-  function handleChanges(type, event) {
-    setEnterValue((pre) => {
-      return {
-        ...pre,
-        [type]: event.target.value,
-      };
-    });
-    setDidedit((old) => {
-      return {
-        ...old,
-        [type]: false,
-      };
-    });
-  }
-
-  function handleInputBlur(type, event) {
-    console.log("handleInputBlur--");
-    setDidedit((old) => {
-      return {
-        ...old,
-        [type]: true,
-      };
-    });
-  }
-
-  console.log(enterValues, emailIsInVaild, didEdit);
 
   function handleSumbit(event) {
     event.preventDefault();
@@ -46,35 +30,54 @@ export default function Login() {
   }
   return (
     <form onSubmit={handleSumbit}>
-      <h2>Login</h2>
+      <h2>Login statefull</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            value={enterValues.email}
-            id="email"
-            type="email"
-            name="email"
-            onBlur={(event) => handleInputBlur("email", event)}
-            onChange={(event) => handleChanges("email", event)}
-          />
-          <div className="control-error">
-            {emailIsInVaild && <p>please enter vaild email</p>}
-          </div>
-        </div>
+        <Input
+          id="email"
+          label={"email"}
+          type="email"
+          name="email"
+          value={emailValue}
+          error={emailError && "input right email"}
+          onBlur={(event) => handleemailblur()}
+          onChange={(event) => handleEmailchange(event)}
+        ></Input>
 
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            value={enterValues.password}
-            id="password"
-            type="password"
-            name="password"
-            onBlur={(event) => handleInputBlur("password", event)}
-            onChange={(event) => handleChanges("password", event)}
-          />
-        </div>
+        <Input
+          id="password"
+          label={"password"}
+          type="password"
+          name="password"
+          value={passValue}
+          error={passError && "input right pass"}
+          onBlur={(event) => handlepassblur()}
+          onChange={(event) => handlepasschange(event)}
+        ></Input>
+      </div>
+
+      <div className="control-row">
+        <InputV2
+          validationFn={(value) => {
+            return isNotEmpty(value) && isEmail(value);
+          }}
+          id="email"
+          label={"email"}
+          type="email"
+          name="email2"
+          error={"input right email"}
+        ></InputV2>
+
+        <InputV2
+          id="password"
+          label={"password"}
+          type="password"
+          name="password2"
+          validationFn={(value) => {
+            return isNotEmpty(value);
+          }}
+          error={"input right pass"}
+        ></InputV2>
       </div>
 
       <p className="form-actions">

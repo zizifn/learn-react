@@ -44,14 +44,7 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input
-            ref={emailRef}
-            // value={enterValues.email}
-            id="email"
-            type="email"
-            name="email"
-            // onChange={(event) => handleChanges("email", event)}
-          />
+          <input ref={emailRef} id="email" type="email" name="email" required />
         </div>
 
         <div className="control no-margin">
@@ -62,6 +55,8 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
+            required
+            minLength={6}
             // onChange={(event) => handleChanges("password", event)}
           />
         </div>
