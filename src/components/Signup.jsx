@@ -1,8 +1,21 @@
 import React from "react";
 
 export default function Signup() {
+  function handleSubmit(event) {
+    const formdata = new FormData(event.target);
+    const acquisitions = formdata.getAll('acquisition');
+    const signupData = Object.fromEntries(formdata.entries());
+    signupData.acquisition = acquisitions;
+
+    console.log(signupData);
+    event.preventDefault();
+  }
+
+  function formchange(event){
+    console.log('formchange', event)
+  }
   return (
-    <form>
+    <form onSubmit={handleSubmit} onChange={formchange}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
