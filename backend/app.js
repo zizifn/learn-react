@@ -27,6 +27,8 @@ app.get('/places', async (req, res) => {
 });
 
 app.get('/user-places', async (req, res) => {
+  console.log("get the user places!!")
+
   const fileContent = await fs.readFile('./data/user-places.json');
 
   const places = JSON.parse(fileContent);
@@ -35,6 +37,7 @@ app.get('/user-places', async (req, res) => {
 });
 
 app.put('/user-places', async (req, res) => {
+  console.log("put the user places!!")
   const places = req.body.places;
 
   await fs.writeFile('./data/user-places.json', JSON.stringify(places));
