@@ -2,8 +2,10 @@ import { use } from 'react';
 
 import { Opinion } from './Opinion';
 import { OpinionsContext } from '../store/opinions-context';
+import React from 'react';
 
 export function Opinions() {
+  console.log("Opinions")
   const { opinions } = use(OpinionsContext);
   
   return (

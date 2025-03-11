@@ -1,6 +1,48 @@
 {
   "opinions": [
     {
+      "id": 1741694348594,
+      "votes": 13,
+      "userName": "sunny222",
+      "title": "why need learn python",
+      "body": "why need learn pythonwhy need learn pythonwhy need learn pythonwhy need learn pythonwhy need learn python"
+    },
+    {
+      "id": 1741694282981,
+      "votes": 5,
+      "userName": "name1111",
+      "title": "why need learn js",
+      "body": "why need learn jswhy need learn jswhy need learn jswhy need learn jswhy need learn js"
+    },
+    {
+      "id": 1741694090093,
+      "votes": 0,
+      "userName": "James1111",
+      "title": "why we need learn java",
+      "body": "why we need learn javawhy we need learn javawhy we need learn javawhy we need learn javawhy we need learn java"
+    },
+    {
+      "id": 1741693959488,
+      "votes": 0,
+      "userName": "ajmes222",
+      "title": "why we need learn vue",
+      "body": "why we need learn vuewhy we need learn vuewhy we need learn vuewhy we need learn vuewhy we need learn vue"
+    },
+    {
+      "id": 1741693846297,
+      "votes": 0,
+      "userName": "sunny",
+      "title": "why we need learn angular",
+      "body": "why we need learn angularwhy we need learn angularwhy we need learn angularwhy we need learn angular"
+    },
+    {
+      "id": 1741693608934,
+      "votes": 0,
+      "userName": "James",
+      "title": "Why need learwn react",
+      "body": "React is an amazing Javdddd"
+    },
+    {
       "id": 1,
       "userName": "Maximilian Schwarzmüller",
       "title": "Do yourself a favor and learn React!",

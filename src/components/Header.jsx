@@ -1,4 +1,10 @@
+import React, { useContext } from "react";
+import { OpinionsContext } from "../store/opinions-context";
+
 export function Header() {
+    // const { opinions } = useContext(OpinionsContext);
+    // console.log(opinions)
+  console.log("-----------Header")
   return (
     <header id="main-header">
       <h1>OpinionBoard</h1>

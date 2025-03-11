@@ -1,4 +1,45 @@
+import React, { useContext, useActionState, useOptimistic } from "react";
+import { useFormState } from "react-dom";
+import { OpinionsContext } from "../store/opinions-context";
+
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
+  const { upvoteOpinion, downvoteOpinion } = useContext(OpinionsContext);
+
+  const [optimisticVotes, saveVotes] = useOptimistic(
+    votes,
+    (oldVotes, mode) => {
+      console.log("useOptimistic---");
+      if (mode === "up") {
+        return oldVotes + 2;
+      } else {
+        return oldVotes - 1;
+      }
+    },
+  );
+
+  async function handleUP(pre, formData) {
+    console.log("handleUP", formData);
+    saveVotes("up");
+    // await new Promise((res)=>{
+    //   setTimeout(()=>{
+    //     res("111")
+    //   }, 1000)
+    // })
+    await upvoteOpinion(id);
+  }
+
+  async function handleDown(pre, formData) {
+    console.log("handleDown", formData);
+    saveVotes("down");
+    await downvoteOpinion(id);
+  }
+
+  const [upformState, upDispatch, upDending] = useActionState(handleUP, null);
+  const [downformState, downDispatch, downPending] = useActionState(
+    handleDown,
+    null,
+  );
+
   return (
     <article>
       <header>
@@ -7,7 +48,7 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       </header>
       <p>{body}</p>
       <form className="votes">
-        <button>
+        <button formAction={upDispatch} disabled={upDending || downPending}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -25,9 +66,9 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
           </svg>
         </button>
 
-        <span>{votes}</span>
+        <span>{optimisticVotes}</span>
 
-        <button>
+        <button formAction={downDispatch} disabled={downPending || upDending}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
