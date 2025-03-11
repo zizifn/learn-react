@@ -7,7 +7,7 @@ async function fetchAvailablePlaces(signal) {
     }
     const placesJSON = await palcesRes.json();
 
-    return placesJSON
+    return placesJSON.places
 }
 
 async function fetchUserPlaces(signal) {
@@ -18,8 +18,9 @@ async function fetchUserPlaces(signal) {
         throw new Error("fail loading user places data");
     }
     const placesJSON = await palcesRes.json();
+    console.log("xxxxxxxx", placesJSON)
 
-    return placesJSON
+    return placesJSON.places
 }
 
 

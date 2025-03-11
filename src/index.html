@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .btn {
+        animation: test-btn 3s ease-out forwards;
+      }
+      @keyframes test-btn {
+        from {
+          opacity: 0;
+          transform: translateY(3rem);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn2 {
+        transition: all 2s ease-in-out;
+      }
+      .btn2:hover {
+        transform: rotate(5deg);
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn1">click me</button>
+    <button class="btn2 btn2">transition btn</button>
+    <script>
+        document.getElementById("btn1").addEventListener("click", (event)=>{
+            document.getElementById("btn1").classList.add("btn")
+        }
+    )
+    </script>
+  </body>
+</html>

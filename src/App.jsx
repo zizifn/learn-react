@@ -8,36 +8,45 @@ import AvailablePlaces from "./components/AvailablePlaces.jsx";
 import React from "react";
 import { updateUserPlaces, fetchUserPlaces } from "./http.js";
 import ErrorMessage from "./components/Error.jsx";
+import { useFetch } from "./hooks/http-hook.js";
 function App() {
   const selectedPlace = useRef();
 
-  const [userPlaces, setUserPlaces] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [fetchUserPlaceError, setfetchUserPlaceError] = useState("");
+  const {
+    data: userPlaces,
+    isFetching,
+    error: fetchUserPlaceError,
+    setData
+  } = useFetch(fetchUserPlaces, []);
 
+  // const [userPlaces, setUserPlaces] = useState([]);
+  // const [isFetching, setIsFetching] = useState(false);
+  // const [fetchUserPlaceError, setfetchUserPlaceError] = useState("");
+
+  console.log("userPlaces", userPlaces);
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    async function getUserPlace() {
-      setIsFetching(true);
-      setfetchUserPlaceError("");
-      try {
-        const userPlaces = await fetchUserPlaces(abortController.signal);
-        setfetchUserPlaceError("");
-        setUserPlaces(userPlaces.places);
-        setIsFetching(false);
-      } catch (error) {
-        console.log("app effect", error)
-        setIsFetching(false);
-        setfetchUserPlaceError(error.message || "failed to load user places");
-      }
-    }
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+  //   async function getUserPlace() {
+  //     setIsFetching(true);
+  //     setfetchUserPlaceError("");
+  //     try {
+  //       const userPlaces = await fetchUserPlaces(abortController.signal);
+  //       setfetchUserPlaceError("");
+  //       setUserPlaces(userPlaces.places);
+  //       setIsFetching(false);
+  //     } catch (error) {
+  //       console.log("app effect", error)
+  //       setIsFetching(false);
+  //       setfetchUserPlaceError(error.message || "failed to load user places");
+  //     }
+  //   }
 
-    getUserPlace();
-    return () => abortController.abort("abort due effect");
-  }, []);
+  //   getUserPlace();
+  //   return () => abortController.abort("abort due effect");
+  // }, []);
 
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
@@ -53,7 +62,7 @@ function App() {
   }
 
   async function handleSelectPlace(selectedPlace) {
-    setUserPlaces((prevPickedPlaces) => {
+    setData((prevPickedPlaces) => {
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];
       }
@@ -66,13 +75,13 @@ function App() {
       const result = await updateUserPlaces([selectedPlace, ...userPlaces]);
     } catch (error) {
       setError(error.message);
-      setUserPlaces(userPlaces);
+      setData(userPlaces);
     }
   }
 
   const handleRemovePlace = useCallback(
     async function handleRemovePlace() {
-      setUserPlaces((prevPickedPlaces) =>
+      setData((prevPickedPlaces) =>
         prevPickedPlaces.filter(
           (place) => place.id !== selectedPlace.current.id,
         ),
@@ -85,12 +94,12 @@ function App() {
         const result = await updateUserPlaces(requestBody);
       } catch (error) {
         setError(error.message);
-        setUserPlaces(userPlaces);
+        setData(userPlaces);
       }
 
       setModalIsOpen(false);
     },
-    [userPlaces],
+    [userPlaces, setData],
   );
 
   return (
@@ -133,7 +142,9 @@ function App() {
           onSelectPlace={handleStartRemovePlace}
         />
 
-        <AvailablePlaces onSelectPlace={handleSelectPlace} />
+        <AvailablePlaces
+        onSelectPlace={handleSelectPlace}
+        />
       </main>
     </>
   );
