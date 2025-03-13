@@ -5,6 +5,10 @@ import { cartActions } from "../store/index";
 
 const CartButton = (props) => {
   const carts = useSelector((state) => state.carts.carts);
+
+  const itemsNumber = carts.reduce((pre, current, index, array) => {
+    return pre + current.qty;
+  }, 0);
   console.log("---CartButton--------", carts, carts.length);
   const dispatch = useDispatch();
 
@@ -14,7 +18,7 @@ const CartButton = (props) => {
   return (
     <button className={classes.button} onClick={toggleCart}>
       <span>My Cart</span>
-      <span className={classes.badge}>{carts.length}</span>
+      <span className={classes.badge}>{itemsNumber}</span>
     </button>
   );
 };
