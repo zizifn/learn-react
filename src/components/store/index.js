@@ -41,14 +41,17 @@ const cartStoreSlice = createSlice(
             },
             decrementQTY(state, action) {
                 const item = state.carts.find(item => item.id === action.payload);
-                if (item) {
+                if (item?.qty === 1) {
+                    const index = state.carts.findIndex(item => item.id === action.payload);
+                    state.carts.splice(index, 1);
+                } else {
                     item.qty -= 1;
                 }
             },
             showCart(state) {
                 console.log('showCart')
                 state.showCart = !state.showCart
-            }
+            },
         }
     }
 )

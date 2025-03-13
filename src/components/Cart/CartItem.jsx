@@ -23,14 +23,14 @@ const CartItem = (props) => {
         <div className={classes.actions}>
           <button
             onClick={() => {
-              disPatch(cartActions.addQTY(id));
+              disPatch(cartActions.decrementQTY(id));
             }}
           >
             -
           </button>
           <button
             onClick={() => {
-              disPatch(cartActions.decrementQTY(id));
+              disPatch(cartActions.addQTY(id));
             }}
           >
             +
