@@ -13,7 +13,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
  */
 const initCartsState = {
     carts: [],
-    showCart: true
+    showCart: true,
 }
 
 const cartStoreSlice = createSlice(
@@ -51,18 +51,44 @@ const cartStoreSlice = createSlice(
             showCart(state) {
                 console.log('showCart')
                 state.showCart = !state.showCart
-            },
+            }
         }
     }
 )
 
+const initUIState = {
+    notification: null
+}
+
+const uiStoreSlice = createSlice(
+    {
+        name: 'ui',
+        initialState: initUIState,
+        reducers: {
+            showNotification(state, action) {
+                // @ts-ignore
+                state.notification = {
+                    status: action.payload.status,
+                    title: action.payload.title,
+                    message: action.payload.message,
+                }
+            }
+        }
+    }
+)
+
+
 const cartActions = cartStoreSlice.actions;
 const cartReducer = cartStoreSlice.reducer;
 
+const uiActions = uiStoreSlice.actions;
+const uiReducer = uiStoreSlice.reducer;
+
 const store = configureStore({
     reducer: {
-        carts: cartReducer
+        carts: cartReducer,
+        ui: uiReducer
     }
 })
 
-export { cartActions, store }
+export { cartActions, store, uiActions }

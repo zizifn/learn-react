@@ -1,19 +1,24 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
+import Notification from "./components/UI/Notification";
 import { useSelector } from "react-redux";
+const CartLazy = lazy(() => import("./components/Cart/Cart"));
 
 function App() {
-  const CartLazy = lazy(() => import("./components/Cart/Cart"));
-
+  const notification = useSelector((store) => store.ui.notification);
+  console.log("notification", notification);
   return (
-    <Layout>
-      <React.Suspense fallback={<div>Loading cart...</div>}>
-        <CartLazy />
-      </React.Suspense>
-      <Products />
-    </Layout>
+    <>
+      {notification && <Notification {...notification}></Notification>}
+      <Layout>
+        <Suspense fallback="loading.........">
+          <CartLazy></CartLazy>
+        </Suspense>
+        <Products />
+      </Layout>
+    </>
   );
 }
 

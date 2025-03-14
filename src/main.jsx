@@ -15,3 +15,9 @@ root.render(
     </Provider>
   </StrictMode>,
 );
+
+// root.render(
+//   <Provider store={store}>
+//     <App />
+//   </Provider>,
+// );
