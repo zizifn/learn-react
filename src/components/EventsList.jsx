@@ -1,9 +1,10 @@
 // import { useLoaderData } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import classes from './EventsList.module.css';
+import classes from "./EventsList.module.css";
+import React from "react";
 
-function EventsList({events}) {
+function EventsList({ events }) {
   // const events = useLoaderData();
 
   return (
