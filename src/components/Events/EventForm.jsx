@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchImages } from "../utils/http.js";
 
-import ImagePicker from '../ImagePicker.jsx';
+import ImagePicker from "../ImagePicker.jsx";
 
 export default function EventForm({ inputData, onSubmit, children }) {
+  const { data, isSuccess } = useQuery({
+    queryKey: ["events-images"],
+    queryFn: fetchImages,
+  });
+
+  console.log("EventForm", data);
+
   const [selectedImage, setSelectedImage] = useState(inputData?.image);
 
   function handleSelectImage(image) {
@@ -26,13 +35,13 @@ export default function EventForm({ inputData, onSubmit, children }) {
           type="text"
           id="title"
           name="title"
-          defaultValue={inputData?.title ?? ''}
+          defaultValue={inputData?.title ?? ""}
         />
       </p>
 
       <div className="control">
         <ImagePicker
-          images={[]}
+          images={isSuccess ? data : []}
           onSelect={handleSelectImage}
           selectedImage={selectedImage}
         />
@@ -43,7 +52,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
         <textarea
           id="description"
           name="description"
-          defaultValue={inputData?.description ?? ''}
+          defaultValue={inputData?.description ?? ""}
         />
       </p>
 
@@ -54,7 +63,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
             type="date"
             id="date"
             name="date"
-            defaultValue={inputData?.date ?? ''}
+            defaultValue={inputData?.date ?? ""}
           />
         </p>
 
@@ -64,7 +73,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
             type="time"
             id="time"
             name="time"
-            defaultValue={inputData?.time ?? ''}
+            defaultValue={inputData?.time ?? ""}
           />
         </p>
       </div>
@@ -75,7 +84,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
           type="text"
           id="location"
           name="location"
-          defaultValue={inputData?.location ?? ''}
+          defaultValue={inputData?.location ?? ""}
         />
       </p>
 

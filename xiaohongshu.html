@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>专业理疗专项调理 - 小红书封面</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+      :root {
+        --primary-color: #ff2e4d;
+        --secondary-color: #ff9500;
+        --accent-color: #00c4cc;
+        --dark-color: #333333;
+        --light-color: #ffffff;
+        --bg-gradient: linear-gradient(135deg, #ffe8ec 0%, #f0f9ff 100%);
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f5f5f5;
+        font-family: "Noto Sans SC", sans-serif;
+      }
+
+      .save-btn {
+        margin: 20px 0;
+        padding: 12px 24px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(255, 46, 77, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(255, 46, 77, 0.4);
+      }
+
+      .save-btn i {
+        margin-right: 8px;
+      }
+
+      .cover-container {
+        height: 550px;
+        width: 100%;
+        max-width: 375px;
+        aspect-ratio: 3/4;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0;
+        background: var(--bg-gradient);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .title-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .main-title {
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-align: center;
+        color: var(--dark-color);
+      }
+
+      .main-title span {
+        display: inline-block;
+        position: relative;
+      }
+
+      .main-title span:first-child {
+        color: var(--primary-color);
+        -webkit-text-stroke: 1px var(--dark-color);
+        text-stroke: 1px var(--dark-color);
+      }
+
+      .main-title span:last-child {
+        color: var(--dark-color);
+        background-color: var(--secondary-color);
+        padding: 0 8px;
+        transform: rotate(-2deg);
+      }
+
+      .subtitle {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--dark-color);
+        text-align: center;
+        margin-bottom: 24px;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+
+      .treatment-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: auto;
+      }
+
+      .treatment-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--accent-color);
+      }
+
+      .treatment-category {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 4px;
+      }
+
+      .treatment-symptoms {
+        font-size: 12px;
+        color: var(--dark-color);
+        opacity: 0.9;
+        line-height: 1.4;
+      }
+
+      .decoration {
+        position: absolute;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .decoration-1 {
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+      }
+
+      .decoration-2 {
+        bottom: -30px;
+        left: -30px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cover" class="cover-container">
+      <div class="content">
+        <div class="decoration decoration-1"></div>
+        <div class="decoration decoration-2"></div>
+
+        <div class="title-container">
+          <h1 class="main-title">
+            <span>专业理疗</span><br />
+            <span>专项调理</span>
+          </h1>
+          <p class="subtitle">专业手法调理 · 告别疼痛困扰 · 重获健康体态</p>
+        </div>
+
+        <div class="treatment-list">
+          <div class="treatment-item">
+            <div class="treatment-category">颈椎专项调理</div>
+            <div class="treatment-symptoms">颈椎痛，头晕，头痛，手麻痛</div>
+          </div>
+          <div class="treatment-item">
+            <div class="treatment-category">脊柱专项调理</div>
+            <div class="treatment-symptoms">脊柱侧弯，肋骨疼痛，压气，胸闷</div>
+          </div>
+          <div class="treatment-item">
+            <div class="treatment-category">肩周专项调理</div>
+            <div class="treatment-symptoms">
+              上肢疼痛，肩周疼痛，五十肩，网球肘
+            </div>
+          </div>
+          <div class="treatment-item">
+            <div class="treatment-category">腰椎专项调理</div>
+            <div class="treatment-symptoms">
+              间盘突出，膨出，臂部痛，腿痛，腰痛
+            </div>
+          </div>
+          <div class="treatment-item">
+            <div class="treatment-category">膝盖专项调理</div>
+            <div class="treatment-symptoms">
+              半月板损伤，滑膜炎，筋膜炎，骨质增生
+            </div>
+          </div>
+          <div class="treatment-item">
+            <div class="treatment-category">脚部专项调理</div>
+            <div class="treatment-symptoms">脚麻，脚痛，崴脚</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="save-btn" id="saveBtn">
+      <i class="fas fa-download"></i>保存封面图片
+    </button>
+
+    <script>
+      document.getElementById("saveBtn").addEventListener("click", function () {
+        const cover = document.getElementById("cover");
+
+        html2canvas(cover, {
+          scale: 2,
+          logging: false,
+          useCORS: true,
+          allowTaint: true,
+        }).then((canvas) => {
+          const link = document.createElement("a");
+          link.download = "专业理疗专项调理-小红书封面.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        });
+      });
+    </script>
+  </body>
+</html>
